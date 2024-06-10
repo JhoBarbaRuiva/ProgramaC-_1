@@ -55,9 +55,11 @@ int Notas(){
 		switch (Select){
 			case 1:scanf("%i",Turma[i].nota1);
 			printf("\nVoce Digitou:  %i",Turma[i].nota1);
+			Turma[i].nota2 = 0;
 			break;
 			case 2:scanf("%i",Turma[i].nota2);
 			printf("\nVoce Digitou:  %i",Turma[i].nota2);
+			Turma[i].nota1 = 0;
 			break;
 			case 3:scanf("%i",Turma[i].nota1);
 			printf("\nVoce Digitou:  %iNota(1)",Turma[i].nota1);
@@ -71,7 +73,7 @@ int Notas(){
 			}
 		printf("\n\n___________________________________________________________________________________\n\n");
 		 }
-		}
+		} 
 }
 int Dados(){
 	for (i=0;i<T;i++){
@@ -110,6 +112,7 @@ int Dados(){
 		}
 		else if(Turma[i].nota1 ==0 and Turma[i].nota2 ==0){
 			printf("\n Nao Foi Possivel fazer a media Por falta de Nota\n");
+			Turma[i].Media=0;
 		}
 		printf("\n\n___________________________________________________________________________________\n\n");
 	}
