@@ -93,8 +93,25 @@ int Dados(){
 		else if(Turma[i].nota2 ==0){
 		printf("\n Aluno Sem A Segunda Nota");	
 		}
-		//Media
-	
+		//Media Com Comparativos se é possivel fazer a media
+		if(Turma[i].nota1 and Turma[i].nota2 !=0){
+			Turma[i].Media=((float)Turma[i].nota1 +(float)Turma[i].nota2)/2;
+			printf("\n Media:  %0.2f",Turma[i].Media);
+		}
+		else if(Turma[i].nota1 ==0 and Turma[i].nota2 !=0){
+			Turma[i].nota1 =0;
+			Turma[i].Media=((float)Turma[i].nota1 +(float)Turma[i].nota2)/2;
+			printf("\n Media ATUAL: %0.2f",Turma[i].Media);
+		}
+		else if(Turma[i].nota1 !=0 and Turma[i].nota2 ==0){
+			Turma[i].nota2 =0;
+			Turma[i].Media=((float)Turma[i].nota1 +(float)Turma[i].nota2)/2;
+			printf("\n Media ATUAL: %0.2f",Turma[i].Media);
+		}
+		else if(Turma[i].nota1 ==0 and Turma[i].nota2 ==0){
+			printf("\n Nao Foi Possivel fazer a media Por falta de Nota\n");
+		}
+		printf("\n\n___________________________________________________________________________________\n\n");
 	}
 }
 int Melhores(){
