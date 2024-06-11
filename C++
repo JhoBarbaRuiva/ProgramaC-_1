@@ -13,7 +13,7 @@ struct lista{
 	int Codigo;
 }Turma[20];
 int i;
-int selec;
+int selec,selec1;
 //Sera feito o cadastro do nome e o Codigo
 int Cadastro(){
 	printf("\n\n CADASTRO \n\n");
@@ -139,7 +139,6 @@ printf("\n\n Melhores Notas !! :) ");
 	}
 	printf("\n\n___________________________________________________________________________________\n\n");	
 }
-
 int Piores(){
 //melhores notas dentro do vetor 
 printf("\n\n Piores Notas !! :) ");
@@ -213,6 +212,33 @@ int Recadastro(){
 	}while(selec='9');
 }
 int main(){
-	printf("\n Bem vindo Professor\n ");
-	Cadastro();
+	int a;
+	do{
+	selec1=0;
+	fflush(stdin);
+	printf("\n\n Bem vindo Professor\n\n ");
+	printf("\n\n               MENU            \n\n");
+	printf("\n          CADASTRO[1]\n");
+	printf("\n          CadastroDasNotas[2]\n");
+	printf("\n          Dados Gerais[3]\n");
+	printf("\n          MelhoresNotas[4]\n");
+	printf("\n          PioresNotas[5]\n");
+	printf("\n          Recadastro[6]\n");
+	printf("\nDigite o numero do menu para continuar:   ");
+	scanf("%d",&a);
+	switch(a){
+		case 1:Cadastro();break;
+		case 2:Notas();break;
+		case 3:Dados();break;
+		case 4:Melhores();break;
+		case 5:Piores();break;
+		case 6:Recadastro();break;
+		default:printf("\nNumero Nao reconhecido\n\n Digite novamente:\n");
+		return 1;
+		break;
+		}
+	fflush(stdin);	
+	printf("\n\n Digite [9]Para finalizar o Programa ou Digite [0] para continuar\n\n");
+	scanf("%d",&selec1);	
+	}while(selec1=9);
 }
