@@ -16,14 +16,15 @@ int i;
 //Sera feito o cadastro do nome e o Codigo
 int Cadastro(){
 	printf("\n\n CADASTRO \n\n");
+	printf("\n O primeiro Aluno Cadastrado sera o Primeiro numero na chamada!!\n");
 	for(i=0;i<T;i++){
-	printf("\n Nome do aluno:  ");
-	if(fgets(Turma[i].Aluno,sizeof(Turma[i].Aluno),stdin)!=NULL){
-		size_t len = strlen(Turma[i].Aluno);
-		if(len>0 && Turma[i].Aluno[len-1]=='\n'){
+		printf("\n Nome do aluno:  ");
+		if(fgets(Turma[i].Aluno,sizeof(Turma[i].Aluno),stdin)!=NULL){
+			size_t len = strlen(Turma[i].Aluno);
+			if(len>0 && Turma[i].Aluno[len-1]=='\n'){
 			Turma[i].Aluno[len-1]='\0';
 		}
-	printf("\n Voce digitou: %s ",Turma[i].Aluno);	
+		printf("\n Voce digitou: %s ",Turma[i].Aluno);	
 	}  
 //Comparador se durante a Leitura ocorreu um erro e retorna ao inicio	
 	else {
@@ -32,15 +33,14 @@ int Cadastro(){
     }
     	printf("\n Digite o Codigo do aluno: ");
 		scanf("%i",&Turma[i].Codigo);
-		printf("\n\n___________________________________________________________________________________\n\n");
-	
- }	   
+ 	 }
+	 printf("\n\n___________________________________________________________________________________\n\n");	   
 }
 //Cadastro das Notas;
 int Notas(){
 	int Select=0;
 	//Caso nao tenha aluno Cadastrado
-	if(Turma[i].Codigo='-1'){
+	if(Turma[i].Codigo=-1){
 		printf("\n Nenhum Aluno Encontrado\n");
 		return 0;
 	}
@@ -118,16 +118,73 @@ int Dados(){
 	}
 }
 int Melhores(){
+//melhores notas dentro do vetor 
+printf("\n\n Melhores Notas !! :) ");
+
+	for(i=0;i<T;i++){
+			if(Turma[i].Codigo=-1){
+			printf("\n Nenhum Aluno Encontrado\n");
+			return 0;
+		}
+		else if(Turma[i].Media>5){
+			printf("\n\n ALUNO: %s \n",Turma[i].Aluno);
+			printf("Media: %f",Turma[i].Media);
+		}
 	
+	}
+	printf("\n\n___________________________________________________________________________________\n\n");	
 }
 
 int Piores(){
+//melhores notas dentro do vetor 
+printf("\n\n Piores Notas !! :) ");
+	for(i=0;i<T;i++){
+			if(Turma[i].Codigo =-1){
+			printf("\n Nenhum Aluno Encontrado\n");
+			return 0;
+		}
+		else if(Turma[i].Media<5){
+			printf("\n\n ALUNO: %s \n",Turma[i].Aluno);
+			printf("Media: %f",Turma[i].Media);
+		}
+	}
+	printf("\n\n___________________________________________________________________________________\n\n");
 	
 }
 int Presenca(){
 	
 }
 int Recadastro(){
+//Recolocar a nota do Aluno
+	int aux=0;
+	int select=0;
+	int novaNota;
+	printf("\n\n Recadastro De Notas\n\n");
+	if(Turma[i].Codigo =-1){
+		printf("\n Nenhum Aluno Encontrado\n");
+		return 0;
+	}
+	do{
+		printf("\n Para Retornar Digite (9)");
+		scanf("%d",&select);
+		printf("\n Digite O numero de chamada do aluno\n");
+		printf("Digite:");
+		scanf("%i",&aux);
+		printf("\nVoce Digitou [ %i ]\n",aux);
+		if(aux<=0 || aux>T){
+			printf("\n O numero digitado Nao existe\n\n Digite Novamente:");
+			return 1;
+		}
+		else{
+			printf("\nAluno",Turma[aux-1].Aluno);
+			printf("\nNota 1",Turma[aux-1].nota1);
+			printf("\nNota 2",Turma[aux-1].nota2);
+			
+			}
+	}while(select==9);
+
+		
+	
 	
 }
 int main(){
