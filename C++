@@ -3,242 +3,264 @@
 #include <time.h>
 #include <string.h>
 #define N 30
-#define T 3
+#define T 20
 /* Proposta é fazer um Menu para uma Turma de escola*/
 struct lista{
-	char Aluno[30];
-	int nota1;
-	int nota2;
-	float Media;
-	int Codigo;
+    char Aluno[30];
+    int nota1;
+    int nota2;
+    float Media;
+    int Codigo;
 }Turma[20];
-int i;
+int i,novaNota;
 int selec,selec1;
+int aux=0;
+
+// Função para limpar a tela
+#ifdef _WIN32
+#define cls() system("cls")
+#else
+#define cls() printf("\033[H\033[J")
+#endif
+
 //Sera feito o cadastro do nome e o Codigo
 int Cadastro(){
-	printf("\n\n CADASTRO \n\n");
-	printf("\n O primeiro Aluno Cadastrado sera o Primeiro numero na chamada!!\n");
-	for(i=0;i<T;i++){
-		fflush(stdin);
-		printf("\n\n___________________________________________________________________________________\n\n");
-		printf("Numero %d",i+1);
-		printf("\n Nome do aluno:  ");
-		if(fgets(Turma[i].Aluno,sizeof(Turma[i].Aluno),stdin)!=NULL){
-			size_t len = strlen(Turma[i].Aluno);
-			if(len>0 && Turma[i].Aluno[len-1]=='\n'){
-			Turma[i].Aluno[len-1]='\0';
-		}
-		printf("\n Voce digitou: %s \n",Turma[i].Aluno);	
-	}  
-//Comparador se durante a Leitura ocorreu um erro e retorna ao inicio	
-	else{
+    printf("\n\n CADASTRO \n\n");
+    printf("\n O primeiro Aluno Cadastrado sera o Primeiro numero na chamada!!\n");
+    for(i=0;i<T;i++){
+        fflush(stdin);
+        printf("\n\n___________________________________________________________________________________\n\n");
+        printf("Numero de Chamada: %d",i+1);
+        printf("\n Nome do aluno:  ");
+        if(fgets(Turma[i].Aluno,sizeof(Turma[i].Aluno),stdin)!=NULL){
+            size_t len = strlen(Turma[i].Aluno);
+            if(len>0 && Turma[i].Aluno[len-1]=='\n'){
+            Turma[i].Aluno[len-1]='\0';
+        }
+        printf("\n Voce digitou: %s \n",Turma[i].Aluno);    
+    }  
+//Comparador se durante a Leitura ocorreu um erro e retorna ao inicio    
+    else{
         printf("\n \nErro na leitura da linha.\n");
         return 1;
     }
-    	printf("\n Digite o Codigo do aluno: ");
-    	fflush(stdin);
-		scanf("%i",&Turma[i].Codigo);
- 	 }
-	 printf("\n\n___________________________________________________________________________________\n\n");	   
+        printf("\n Digite o Codigo do aluno: ");
+        fflush(stdin);
+        scanf("%i",&Turma[i].Codigo);
+     }
+     printf("\n\n___________________________________________________________________________________\n\n");       
 }
+
 //Cadastro das Notas;
 int Notas(){
-	int Select=0;
-	//Caso nao tenha aluno Cadastrado
-	if(Turma[i].Codigo=-1){
-		printf("\n Nenhum Aluno Encontrado\n");
-		return 0;
-	}
-	else{
-	printf("\n NOTAS \n");
-	for(i=0;i<T;i++){
-		printf("\nAluno: %s",Turma[i].Aluno);
-		printf("\nDIGITE[1] para Nota(1)\n   DIGIITE[2] para Nota(2)\n    DIGITE[3]Para Colar as duas NOTAS\n");
-		printf("\nDIGITE O NUMERO: ");
-		fflush(stdin);
-		scanf("%i",Select);
-		switch (Select){
-			case 1:scanf("%i",Turma[i].nota1);
-			printf("\nVoce Digitou:  %i",Turma[i].nota1);
-			Turma[i].nota2 = 0;
-			break;
-			case 2:scanf("%i",Turma[i].nota2);
-			printf("\nVoce Digitou:  %i",Turma[i].nota2);
-			Turma[i].nota1 = 0;
-			break;
-			case 3:scanf("%i",Turma[i].nota1);
-			printf("\nVoce Digitou:  %iNota(1)",Turma[i].nota1);
-			scanf("%i",Turma[i].nota2);
-			printf("\nVoce Digitou:  %iNota(2)",Turma[i].nota2);			
-			default:printf("\nNumero Nao Encontrado");//Caso tenha erro na digitação do Numero
-			return 1;
-			i--;//Para ele nao pular o Aluno
-			printf("\nDIGITE O NUMERO: ");
-			break;
-			}
-		printf("\n\n___________________________________________________________________________________\n\n");
-		 }
-		} 
+    int Select=0;
+    int a;
+    //Caso nao tenha aluno Cadastrado
+    if(Turma[T-1].Codigo==0)
+        {
+        printf("\n Nenhum Aluno Encontrado\n");
+        return 0;
+        }
+    else{
+    printf("\n NOTAS \n");
+            for(i=0;i<T;i++)
+            {
+                printf("\nAluno: %s",Turma[i].Aluno);
+                printf("\nDIGITE[1] para Nota(1)\n DIGIITE[2] para Nota(2)\n  DIGITE[3]Para Colar as duas NOTAS\n");
+                printf("\nDIGITE O NUMERO: ");
+                fflush(stdin);
+                scanf("%i",&Select);
+                switch (Select){
+                    case 1:
+                    printf("\nDigite a Nota 1:");
+                    scanf("%i",&Turma[i].nota1);
+                    printf("\nVoce Digitou:  %i",Turma[i].nota1);
+                    Turma[i].nota2 = 0;
+                    break;
+                    case 2:
+                    printf("\nDigite a Nota 2:");
+                    scanf("%i",&Turma[i].nota2);
+                    printf("\nVoce Digitou:  %i",Turma[i].nota2);
+                    Turma[i].nota1 = 0;
+                    break;
+                    case 3:
+                    fflush(stdin);
+                    printf("\nDigite a Nota 1:");    
+                    scanf("%d",&Turma[i].nota1);
+                    fflush(stdin);
+                    printf("\nVoce Digitou:  %i",Turma[i].nota1);
+                    printf("\nDigite a Nota 2:");
+                    fflush(stdin);
+                    scanf("%d",&Turma[i].nota2);
+                    printf("\nVoce Digitou:  %i",Turma[i].nota2);
+                    break;            
+                    default:printf("\nNumero Nao Encontrado");//Caso tenha erro na digitação do Numero
+                    i--;//Para ele nao pular o Aluno
+                    break;
+                    }
+                
+                printf("\n\n___________________________________________________________________________________\n\n");
+            }
+    }
 }
 int Dados(){
-	for (i=0;i<T;i++){
-		//nome
-		printf("\n\nNome: %s",Turma[i].Aluno);
-		//Codigo
-		printf("\n\nCodigo: %i",Turma[i].Codigo);
-		//Nota 1 com comparativo para caso o aluno nao tenha noda
-		if(Turma[i].nota1 != 0){
-		printf("\n\nNota1: %i",Turma[i].nota1);
-		}
-		else if(Turma[i].nota1 ==0){
-		printf("\n Aluno Sem A Primeira Nota");	
-		}
-		//Nota 2 com comparativo para caso o aluno nao tenha noda
-		if(Turma[i].nota2 != 0){
-		printf("\n\nNota2: %i",Turma[i].nota2);
-		}
-		else if(Turma[i].nota2 ==0){
-		printf("\n Aluno Sem A Segunda Nota");	
-		}
-		//Media Com Comparativos se é possivel fazer a media
-		if(Turma[i].nota1 and Turma[i].nota2 !=0){
-			Turma[i].Media=((float)Turma[i].nota1 +(float)Turma[i].nota2)/2;
-			printf("\n Media:  %0.2f",Turma[i].Media);
-		}
-		else if(Turma[i].nota1 ==0 and Turma[i].nota2 !=0){
-			Turma[i].nota1 =0;
-			Turma[i].Media=((float)Turma[i].nota1 +(float)Turma[i].nota2)/2;
-			printf("\n Media ATUAL: %0.2f",Turma[i].Media);
-		}
-		else if(Turma[i].nota1 !=0 and Turma[i].nota2 ==0){
-			Turma[i].nota2 =0;
-			Turma[i].Media=((float)Turma[i].nota1 +(float)Turma[i].nota2)/2;
-			printf("\n Media ATUAL: %0.2f",Turma[i].Media);
-		}
-		else if(Turma[i].nota1 ==0 and Turma[i].nota2 ==0){
-			printf("\n Nao Foi Possivel fazer a media Por falta de Nota\n");
-			Turma[i].Media=0;
-		}
-		printf("\n\n___________________________________________________________________________________\n\n");
-	}
+    for (i=0;i<T;i++){
+        //nome
+        printf("\n\nNome: %s",Turma[i].Aluno);
+        //Codigo
+        printf("\n\nCodigo: %i",Turma[i].Codigo);
+        //Nota 1 com comparativo para caso o aluno nao tenha noda
+        if(Turma[i].nota1 != 0){
+        printf("\n\nNota1: %i",Turma[i].nota1);
+        }
+        else if(Turma[i].nota1 ==0){
+        printf("\n Aluno Sem A Primeira Nota");    
+        }
+        //Nota 2 com comparativo para caso o aluno nao tenha noda
+        if(Turma[i].nota2 != 0){
+        printf("\n\nNota2: %i",Turma[i].nota2);
+        }
+        else if(Turma[i].nota2 ==0){
+        printf("\n Aluno Sem A Segunda Nota");    
+        }
+        //Media Com Comparativos se é possivel fazer a media
+        if(Turma[i].nota1 && Turma[i].nota2 !=0){
+            Turma[i].Media=((float)Turma[i].nota1 +(float)Turma[i].nota2)/2;
+            printf("\n Media:  %0.2f",Turma[i].Media);
+        }
+        else if(Turma[i].nota1 ==0 && Turma[i].nota2 !=0){
+            Turma[i].nota1 =0;
+            Turma[i].Media=((float)Turma[i].nota1 +(float)Turma[i].nota2)/2;
+            printf("\n Media ATUAL: %0.2f",Turma[i].Media);
+        }
+        else if(Turma[i].nota1 !=0 && Turma[i].nota2 ==0){
+            Turma[i].nota2 =0;
+            Turma[i].Media=((float)Turma[i].nota1 +(float)Turma[i].nota2)/2;
+            printf("\n Media ATUAL: %0.2f",Turma[i].Media);
+        }
+        else if(Turma[i].nota1 ==0 && Turma[i].nota2 ==0){
+            printf("\n Nao Foi Possivel fazer a media Por falta de Nota\n");
+            Turma[i].Media=0;
+        }
+        printf("\n\n___________________________________________________________________________________\n\n");
+    }
 }
 int Melhores(){
 //melhores notas dentro do vetor 
 printf("\n\n Melhores Notas !! :) ");
 
-	for(i=0;i<T;i++){
-			if(Turma[i].Codigo=-1){
-			printf("\n Nenhum Aluno Encontrado\n");
-			return 0;
-		}
-		else if(Turma[i].Media>5){
-			printf("\n\n ALUNO: %s \n",Turma[i].Aluno);
-			printf("Media: %f",Turma[i].Media);
-		}
-	
-	}
-	printf("\n\n___________________________________________________________________________________\n\n");	
+    for(i=0;i<T;i++){
+            if(Turma[i].Codigo==-1){
+            printf("\n Nenhum Aluno Encontrado\n");
+            return 0;
+        }
+        else if(Turma[i].Media>5){
+            printf("\n\n ALUNO: %s \n",Turma[i].Aluno);
+            printf("Media: %f",Turma[i].Media);
+        }
+    
+    }
+    printf("\n\n___________________________________________________________________________________\n\n");    
 }
 int Piores(){
 //melhores notas dentro do vetor 
 printf("\n\n Piores Notas !! :) ");
-	for(i=0;i<T;i++){
-			if(Turma[i].Codigo =-1){
-			printf("\n Nenhum Aluno Encontrado\n");
-			return 0;
-		}
-		else if(Turma[i].Media<5){
-			printf("\n\n ALUNO: %s \n",Turma[i].Aluno);
-			printf("Media: %f",Turma[i].Media);
-		}
-	}
-	printf("\n\n___________________________________________________________________________________\n\n");
-	
+    for(i=0;i<T;i++){
+            if(Turma[i].Codigo ==0){
+            printf("\n Nenhum Aluno Encontrado\n");
+            return 0;
+        }
+        else if(Turma[i].Media<=5){
+            printf("\n\n ALUNO: %s \n",Turma[i].Aluno);
+            printf("Media: %f",Turma[i].Media);
+        }
+    }
+    printf("\n\n___________________________________________________________________________________\n\n");
 }
 int Presenca(){
-	
+    
 }
 int Recadastro(){
 //Recolocar a nota do Aluno
-	int novaNota;
-	printf("\n\n Recadastro De Notas\n\n");
-	if(Turma[i].Codigo =-1){
-		printf("\n Nenhum Aluno Encontrado\n");
-		return 0;
-	}
-	do{
-		int aux=0;
-		printf("\n Para Retornar Digite (9)");
-		scanf("%d",&selec);
-		printf("\n Digite O numero de chamada do aluno\n");
-		printf("Digite: ");
-		scanf("%i",&aux);
-		printf("\nVoce Digitou [ %i ]\n",aux);
-		if(aux<=0 || aux>T){
-			printf("\n O numero digitado Nao existe\n\n Digite Novamente:");
-			return 1;
-		}
-		else{
-			int j;
-			printf("\nAluno",Turma[aux-1].Aluno);
-			printf("\nNota 1",Turma[aux-1].nota1);
-			printf("\nNota 2",Turma[aux-1].nota2);
-			printf("\nDeseja Mudar qual nota do Aluno?");
-			printf("\nDigite [1] Para nota 1 Digite [2] Para Nota 2");
-			scanf("%i",&j);
-			while (getchar() != '\n');
-			if(j<=0){
-				printf("\n Erro na leitura Digite novamente\n");
-				return 1;
-			}
-			else{
-				switch(j)
-					{
-					case 1:
-						printf("\n Digite a Nova Nota 1:  ");
-						scanf("%i",Turma[aux-1].nota1);
-						while (getchar() != '\n');
-						printf("\n Nova Nota Mudado com sucesso\n");
-					break;	
-					case 2:
-						printf("\n Digite a Nova Nota 2:  ");
-						scanf("%i",Turma[aux-1].nota2);
-						while (getchar() != '\n');
-						printf("\n Nova Nota Mudado com sucesso\n");
-					break;
-					}
-			}
-			}
-	}while(selec='9');
+    printf("\n\n RECADASTRO DE NOTAS\n\n");
+    if(Turma[T-1].Codigo <=0){
+        printf("\n Nenhum Aluno Encontrado\n");
+        return 0;
+    }
+    do{
+    printf("\nDigite o numero de chamada do aluno\n");
+        printf("DIGITE O NUMERO: ");
+        scanf("%i", &aux);
+        while (getchar() != '\n'); // Limpar o buffer do stdin
+        printf("\nVoce Digitou [ %i ]\n", aux);
+        if (aux <= 0 || aux > T) {
+            printf("\n O numero digitado Nao existe\n\n Digite Novamente:");
+            continue; // Volta ao início do loop do-while
+        }
+        else{
+            int j;
+            printf("\nAluno: %s ",Turma[aux-1].Aluno);
+            printf("\nNota 1: %i",Turma[aux-1].nota1);
+            printf("\nNota 2: %i",Turma[aux-1].nota2);
+            printf("\nDeseja Mudar qual nota do Aluno?");
+            printf("\nDigite [1] Para nota 1 \nDigite [2] Para Nota 2\n");
+            scanf("%i",&j);
+            while (getchar() != '\n');
+            if(j<=0){
+                printf("\n Erro na leitura Digite novamente\n");
+                continue;
+            }
+            else{
+                switch(j)
+                    {
+                    case 1:
+                        printf("\n Digite a Nova Nota 1:  ");
+                        scanf("%i",&Turma[aux-1].nota1);
+                        while (getchar() != '\n');
+                        printf("\n Nova Nota Mudado com sucesso\n");
+                    break;    
+                    case 2:
+                        printf("\n Digite a Nova Nota 2:  ");
+                        scanf("%i",&Turma[aux-1].nota2);
+                        while (getchar() != '\n');
+                        printf("\n Nova Nota Mudado com sucesso\n");
+                    break;
+                    }
+            }
+            }
+        printf("\n\nDigite [9]Para finalizar o Recadastro\n\nDigite [0] para retornar ao Inicio do Recastro\n\n");
+        printf("DIGITE O NUMERO: ");
+        scanf("%d",&selec);        
+    }while(selec!=9);
 }
 int main(){
-	int a;
-	do{
-	selec1=0;
-	fflush(stdin);
-	printf("\n\n Bem vindo Professor\n\n ");
-	printf("\n\n               MENU            \n\n");
-	printf("\n          CADASTRO[1]\n");
-	printf("\n          CadastroDasNotas[2]\n");
-	printf("\n          Dados Gerais[3]\n");
-	printf("\n          MelhoresNotas[4]\n");
-	printf("\n          PioresNotas[5]\n");
-	printf("\n          Recadastro[6]\n");
-	printf("\nDigite o numero do menu para continuar:   ");
-	scanf("%d",&a);
-	switch(a){
-		case 1:Cadastro();break;
-		case 2:Notas();break;
-		case 3:Dados();break;
-		case 4:Melhores();break;
-		case 5:Piores();break;
-		case 6:Recadastro();break;
-		default:printf("\nNumero Nao reconhecido\n\n Digite novamente:\n");
-		return 1;
-		break;
-		}
-	fflush(stdin);	
-	printf("\n\n Digite [9]Para finalizar o Programa ou Digite [0] para continuar\n\n");
-	scanf("%d",&selec1);	
-	}while(selec1=9);
+    int a;
+    do{
+    fflush(stdin);
+    printf("\n\n Bem vindo Professor\n\n ");
+    printf("\n\n               MENU            \n\n");
+    printf("\n          CADASTRO[1]\n");
+    printf("\n          CadastroDasNotas[2]\n");
+    printf("\n          Dados Gerais[3]\n");
+    printf("\n          MelhoresNotas[4]\n");
+    printf("\n          PioresNotas[5]\n");
+    printf("\n          Recadastro[6]\n");
+    printf("\nDigite o numero do menu para continuar:   ");
+    fflush(stdin);
+    scanf("%d",&a);
+    switch(a){
+        case 1:Cadastro();break;
+        case 2:Notas();break;
+        case 3:Dados();break;
+        case 4:Melhores();break;
+        case 5:Piores();break;
+        case 6:Recadastro();break;
+        default:printf("\nNumero Nao reconhecido\n\nDigite novamente:\n");
+        break;
+        }
+    fflush(stdin);    
+    printf("\n\nDigite [9]Para finalizar o Programa\n\nDigite [0] para retornar ao MENU\n\n");
+    scanf("%d",&selec1);
+    cls();
+    }while(selec1!=9);
 }
